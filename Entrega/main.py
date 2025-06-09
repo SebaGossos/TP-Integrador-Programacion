@@ -4,16 +4,17 @@ import random
 # ? Función para medir el tiempo de ejecución de otra función
 def time_total(func, args):
   inicio_tiempo =  time.perf_counter()  # Inicia el contador de tiempo
-  func(*args)
+  funcion_a_ejecutar = func(*args)
   fin_tiempo =  time.perf_counter()  # Finaliza el contador de tiempo
   print(f"Tiempo de ejecución de {func.__name__}: {fin_tiempo - inicio_tiempo:.8f} segundos")
+  return funcion_a_ejecutar
   
 # ? GENERAR LISTAS DE DNI
 def generate_random_list(size, start, end):
     return random.sample(range(start, end), size)
 
-# ? Lista desordenada de 100.000 números aleatorios entre 1 y 100.000
-lista_dni_desordenada = generate_random_list(10000, 1, 100001)
+# ? Lista desordenada de 20.000 números aleatorios entre 1 y 20.000
+lista_dni_desordenada = generate_random_list(20000, 1, 20001)
 
   
 #! ---- ALGORITMOS DE ORDENAMIENTO ---- #!
@@ -28,8 +29,10 @@ def ordenamiento_seleccion(lista):
         lista[i], lista[min_index] = lista[min_index], lista[i]
     return lista
 
+#*--------------------------------------------------------------
+
 # * El algoritmo de quicksort es un algoritmo de ordenamiento eficiente que utiliza el enfoque de divide y vencerás. Selecciona un elemento como pivote y particiona la lista en dos sublistas: una con elementos menores que el pivote y otra con elementos mayores. Luego, aplica recursivamente el mismo proceso a las sublistas. Su complejidad promedio es O(n log n), lo que lo hace adecuado para listas grandes.
-def quicksort(lista):
+def ordenamiento_quicksort(lista):
     if len(lista) <= 1:
         return lista
     else:
@@ -37,7 +40,7 @@ def quicksort(lista):
         izquierda = [x for x in lista if x < pivote]
         medio = [x for x in lista if x == pivote]
         derecha = [x for x in lista if x > pivote]
-        return quicksort(izquierda) + medio + quicksort(derecha)
+        return ordenamiento_quicksort(izquierda) + medio + ordenamiento_quicksort(derecha)
 
 
 #! ---- ALGORITMOS DE BÚSQUEDA ---- #!
@@ -97,13 +100,59 @@ def busqueda_interpolacion(lista_ordenada, elemento):
       else:
           derecha = pos - 1
   return -1
-
-#*--------------------------------------------------------------
   
+
+
 
 #! ---- EJECUCIÓN DE LAS PRUEBAS ---- #!
 
-# lista_ordenada = ordenamiento_seleccion(lista_dni_desordenada[:])
-# print("Lista ordenada:", lista_ordenada[:10])
+def main():
+  opcion = input('Seleccione una opción:\n1. Ordenamiento\n2. Búsqueda\n3. Salir\nOpción: ')
+  if opcion == '1':
+    ordenamiento_opcion = input("---- ORDENAMIENTO ---- \n1. Ordenamiento por selección\n2. Quicksort \n3. Salir \nOpción: ")
+    
+    if ordenamiento_opcion == '1':
+      print( "Primeros 10 numeros para corroborar el orden: ", time_total(ordenamiento_seleccion, [lista_dni_desordenada[:]])[:10])  # Muestra los primeros 10 elementos de la lista ordenada
+    elif ordenamiento_opcion == '2':
+      print( "Primeros 10 numeros para corroborar el orden: ", time_total(ordenamiento_quicksort, [lista_dni_desordenada[:]])[:10])
+    elif ordenamiento_opcion == '3':
+      print("Saliendo del programa.")
+      return
+    else:
+      main()  # Vuelve al menú principal
 
-# time_total(ordenamiento_seleccion, [lista_dni_desordenada[:]])  # Mide el tiempo de ejecución del algoritmo de ordenamiento
+  elif opcion == '2':
+    elemento = int(input("Ingrese el numero a buscar entre 1 y 20.000: "))
+    
+    busqueda_opcion = input("---- INGRESE EL ALGORITMO DE BÚSQUEDA QUE PREFIERA ---- \n1. Búsqueda lineal\n2. Búsqueda binaria\n3. Búsqueda por interpolación\n4. Salir\nOpción: ")
+    
+    if busqueda_opcion == '1':
+      resultado = time_total(busqueda_lineal, [lista_dni_desordenada, elemento])
+      print(f"Resultado de la búsqueda lineal: { 'no se encuentra el numero ' + str(elemento) if resultado == -1 else resultado }")
+      
+    elif busqueda_opcion == '2':
+      lista_ordenada = ordenamiento_quicksort(lista_dni_desordenada[:])
+      resultado = time_total(busqueda_binaria, [lista_ordenada, elemento])
+      print(f"Resultado de la búsqueda binaria: {'no se encuentra el numero ' + str(elemento) if resultado == -1 else resultado}")
+      
+    elif busqueda_opcion == '3':
+      lista_ordenada = ordenamiento_quicksort(lista_dni_desordenada[:])  
+      resultado = time_total(busqueda_interpolacion, [lista_ordenada, elemento])
+      print(f"Resultado de la búsqueda por interpolación: {'no se encuentra el numero ' + str(elemento) if resultado == -1 else resultado}")
+    elif busqueda_opcion == '4':
+      print("Saliendo del programa.")
+      return
+      
+    else:
+      main()
+      
+  elif opcion == '3':
+    print("Saliendo del programa.")
+    return
+    
+  else:
+    main()
+    
+if __name__ == "__main__":
+  main()
+  
