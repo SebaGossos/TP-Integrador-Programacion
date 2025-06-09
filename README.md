@@ -19,4 +19,4 @@ Este trabajo aborda los algoritmos de búsqueda y ordenamiento, componentes esen
 
 ### 🔗 Recursos Multimedia
 
-**Video explicativo:** 
+**Video explicativo:** [Ver en YouTube](https://youtu.be/1trjDkIf4kc?si=DagYiX1T4mwpyNs0)https://youtu.be/1trjDkIf4kc?si=DagYiX1T4mwpyNs0
