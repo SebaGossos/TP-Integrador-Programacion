@@ -28,8 +28,16 @@ def ordenamiento_seleccion(lista):
         lista[i], lista[min_index] = lista[min_index], lista[i]
     return lista
 
-
-
+# * El algoritmo de quicksort es un algoritmo de ordenamiento eficiente que utiliza el enfoque de divide y vencerás. Selecciona un elemento como pivote y particiona la lista en dos sublistas: una con elementos menores que el pivote y otra con elementos mayores. Luego, aplica recursivamente el mismo proceso a las sublistas. Su complejidad promedio es O(n log n), lo que lo hace adecuado para listas grandes.
+def quicksort(lista):
+    if len(lista) <= 1:
+        return lista
+    else:
+        pivote = lista[len(lista) // 2]
+        izquierda = [x for x in lista if x < pivote]
+        medio = [x for x in lista if x == pivote]
+        derecha = [x for x in lista if x > pivote]
+        return quicksort(izquierda) + medio + quicksort(derecha)
 
 
 #! ---- ALGORITMOS DE BÚSQUEDA ---- #!
