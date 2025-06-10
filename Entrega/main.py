@@ -16,7 +16,7 @@ def generate_random_list(size, start, end):
 # ? Lista desordenada de 20.000 números aleatorios entre 1 y 20.000
 lista_dni_desordenada = generate_random_list(20000, 1, 20001)
 
-  
+
 #! ---- ALGORITMOS DE ORDENAMIENTO ---- #!
 
 # * El algoritmo de seleccion es un algoritmo de ordenamiento simple que divide la lista en dos partes: la parte ordenada y la parte desordenada. En cada iteración, encuentra el elemento más pequeño de la parte desordenada y lo mueve a la parte ordenada. Aunque es fácil de entender e implementar, no es eficiente para listas grandes debido a su complejidad O(n^2).
@@ -24,7 +24,7 @@ def ordenamiento_seleccion(lista):
     for i in range(len(lista)):
         min_index = i
         for j in range(i + 1, len(lista)):
-            if lista[j] < lista[min_index]:
+            if lista[j] < lista[min_index]: 
                 min_index = j
         lista[i], lista[min_index] = lista[min_index], lista[i]
     return lista
@@ -45,7 +45,7 @@ def ordenamiento_quicksort(lista):
 
 #! ---- ALGORITMOS DE BÚSQUEDA ---- #!
 
-# * Búsca elemento por elemento en una lista desordenada (búsqueda lineal)
+# * Búsca elemento por elemento en una lista desordenada (búsqueda lineal) O(n)
 # Ineficiente para listas grandes, pero simple de implementar.
 def busqueda_lineal(lista, elemento):
     for i in range(len(lista)):
@@ -55,7 +55,7 @@ def busqueda_lineal(lista, elemento):
   
 #*--------------------------------------------------------------
  
-# * Búsca un elemento de la lista partiendola en dos y luego compara el elemento con el del medio.
+# * Búsca un elemento de la lista partiendola en dos y luego compara el elemento con el del medio. O(log n)
 # Requiere que la lista esté ordenada, pero es mucho más eficiente que la búsqueda lineal.
 def busqueda_binaria(lista_ordenada, elemento):
   izquierda = 0
@@ -152,7 +152,7 @@ def main():
     
   else:
     main()
-    
+
 if __name__ == "__main__":
   main()
   
